@@ -18,15 +18,15 @@ function Register({ onInfoTooltip }) {
         e.preventDefault()
         auth.register(formValues)
             .then((res) => {
-                if (res.statusCode !== 400) {
+                if (!(res.error || res.message)) {
                     history.push('/sign-in')
                     onInfoTooltip(true)
+                } else if (res.error || res.message) {
+                    onInfoTooltip(false)
                 }
-                onInfoTooltip(false)
             })
             .catch((err) => {
                 console.log(err)
-                onInfoTooltip(false)
             })
     }
 

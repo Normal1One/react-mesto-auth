@@ -45,7 +45,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
                         type="text"
                         name="name"
                         className="form__input"
-                        value={formValues.name}
+                        value={formValues.name || ''}
                         placeholder="Имя"
                         required
                         minLength="2"
@@ -59,7 +59,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
                         type="text"
                         name="description"
                         className="form__input"
-                        value={formValues.description}
+                        value={formValues.description || ''}
                         placeholder="О себе"
                         required
                         minLength="2"
