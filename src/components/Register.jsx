@@ -17,16 +17,13 @@ function Register({ onInfoTooltip }) {
     function handleSubmit(e) {
         e.preventDefault()
         auth.register(formValues)
-            .then((res) => {
-                if (!(res.error || res.message)) {
-                    history.push('/sign-in')
-                    onInfoTooltip(true)
-                } else if (res.error || res.message) {
-                    onInfoTooltip(false)
-                }
+            .then(() => {
+                history.push('/sign-in')
+                onInfoTooltip(true)
             })
             .catch((err) => {
                 console.log(err)
+                onInfoTooltip(false)
             })
     }
 

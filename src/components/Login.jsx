@@ -23,8 +23,8 @@ function Login({ onInfoTooltip, onLoggedIn }) {
                         email: '',
                         password: '',
                     })
-                    history.push('/')
                     onLoggedIn(true)
+                    history.push('/')
                 }
             })
             .catch((err) => {
