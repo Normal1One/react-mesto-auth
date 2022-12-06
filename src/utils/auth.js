@@ -7,13 +7,7 @@ export const register = ({ email, password }) => {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email, password }),
-    })
-        .then((res) => {
-            return res.json()
-        })
-        .catch((err) => {
-            console.log(err)
-        })
+    }).then(_checkResponse)
 }
 
 export const authorize = ({ email, password }) => {
@@ -24,17 +18,12 @@ export const authorize = ({ email, password }) => {
         },
         body: JSON.stringify({ password, email }),
     })
-        .then((res) => {
-            return res.json()
-        })
+        .then(_checkResponse)
         .then((data) => {
             if (data.token) {
                 localStorage.setItem('token', data.token)
                 return data
             }
-        })
-        .catch((err) => {
-            console.log(err)
         })
 }
 
@@ -45,11 +34,12 @@ export const checkToken = (token) => {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
         },
-    })
-        .then((res) => {
-            return res.json()
-        })
-        .catch((err) => {
-            console.log(err)
-        })
+    }).then(_checkResponse)
+}
+
+function _checkResponse(response) {
+    if (response.ok) {
+        return response.json()
+    }
+    return Promise.reject(`Ошибка: ${response.status}`)
 }
