@@ -177,9 +177,7 @@ function App() {
             auth.checkToken(token)
                 .then((res) => {
                     setUserEmail(res.data.email)
-                    if (res) {
-                        setLoggedIn(true)
-                    }
+                    setLoggedIn(true)
                 })
                 .catch((err) => {
                     console.log(err)
