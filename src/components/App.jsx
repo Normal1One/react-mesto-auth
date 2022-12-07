@@ -5,7 +5,7 @@ import EditProfilePopup from './EditProfilePopup'
 import ImagePopup from './ImagePopup'
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js'
 import React from 'react'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { Route, Switch, useHistory } from 'react-router-dom'
 import api from '../utils/api'
 import * as auth from '../utils/auth'
 import EditAvatarPopup from './EditAvatarPopup'
@@ -31,6 +31,7 @@ function App() {
     const [loggedIn, setLoggedIn] = React.useState(false)
     const [userEmail, setUserEmail] = React.useState('')
     const [isSuccessfully, setSuccessfully] = React.useState(true)
+    const history = useHistory()
 
     function handleCardLike(card) {
         const isLiked = card.likes.some((i) => i._id === currentUser._id)
@@ -80,10 +81,6 @@ function App() {
     function handleCardClick(card) {
         setSelectedCard(card)
         setImagePopupOpen(true)
-    }
-
-    function handleSetLoggedIn(res) {
-        setLoggedIn(res)
     }
 
     function renderLoading(isLoading) {
@@ -139,9 +136,35 @@ function App() {
             })
     }
 
-    function handleInfoTooltip(res) {
-        setSuccessfully(res)
-        setInfoTooltipPopup(true)
+    function handleLoginSubmit(e, formValues) {
+        e.preventDefault()
+        auth.authorize(formValues)
+            .then((data) => {
+                if (data.token) {
+                    setLoggedIn(true)
+                    history.push('/')
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+                setSuccessfully(false)
+                setInfoTooltipPopup(true)
+            })
+    }
+
+    function handleRegisterSubmit(e, formValues) {
+        e.preventDefault()
+        auth.register(formValues)
+            .then(() => {
+                history.push('/sign-in')
+                setSuccessfully(true)
+                setInfoTooltipPopup(true)
+            })
+            .catch((err) => {
+                console.log(err)
+                setSuccessfully(false)
+                setInfoTooltipPopup(true)
+            })
     }
 
     function closeAllPopups() {
@@ -186,102 +209,92 @@ function App() {
     })
 
     return (
-        <BrowserRouter>
-            <div className="page">
-                <CurrentUserContext.Provider value={currentUser}>
-                    <Switch>
-                        <ProtectedRoute
-                            exact
-                            path="/"
-                            component={() => (
-                                <>
-                                    <Header
-                                        headerTitle="Выйти"
-                                        userEmail={userEmail}
-                                        onSignOut={handleSignOut}
-                                        linkTo="/sign-up"
-                                    />
-                                    <Main
-                                        onEditAvatar={handleEditAvatarClick}
-                                        onEditProfile={handleEditProfileClick}
-                                        onAddPlace={handleAddPlaceClick}
-                                        onCardClick={handleCardClick}
-                                        cards={cards}
-                                        onCardDelete={handleDeletePlaceClick}
-                                        onCardLike={handleCardLike}
-                                    />
-                                </>
-                            )}
-                            loggedIn={loggedIn}
-                        />
-                        <Route
-                            path="/sign-in"
-                            render={() => (
-                                <div>
-                                    <Header
-                                        headerTitle="Регистрация"
-                                        linkTo="/sign-up"
-                                    />
-                                    <Login
-                                        onInfoTooltip={handleInfoTooltip}
-                                        onLoggedIn={handleSetLoggedIn}
-                                    />
-                                </div>
-                            )}
-                        ></Route>
-                        <Route
-                            path="/sign-up"
-                            render={() => (
-                                <div>
-                                    <Header
-                                        headerTitle="Войти"
-                                        linkTo="/sign-in"
-                                    />
-                                    <Register
-                                        onInfoTooltip={handleInfoTooltip}
-                                    />
-                                </div>
-                            )}
-                        ></Route>
-                    </Switch>
-                    <Footer />
-                    <EditProfilePopup
-                        isOpen={isEditProfilePopupOpen}
-                        onClose={closeAllPopups}
-                        onUpdateUser={handleUpdateUser}
-                        isLoading={isLoading}
+        <div className="page">
+            <CurrentUserContext.Provider value={currentUser}>
+                <Switch>
+                    <ProtectedRoute
+                        exact
+                        path="/"
+                        component={() => (
+                            <>
+                                <Header
+                                    headerTitle="Выйти"
+                                    userEmail={userEmail}
+                                    onSignOut={handleSignOut}
+                                    linkTo="/sign-up"
+                                />
+                                <Main
+                                    onEditAvatar={handleEditAvatarClick}
+                                    onEditProfile={handleEditProfileClick}
+                                    onAddPlace={handleAddPlaceClick}
+                                    onCardClick={handleCardClick}
+                                    cards={cards}
+                                    onCardDelete={handleDeletePlaceClick}
+                                    onCardLike={handleCardLike}
+                                />
+                            </>
+                        )}
+                        loggedIn={loggedIn}
                     />
-                    <AddPlacePopup
-                        isOpen={isAddPlacePopupOpen}
-                        onClose={closeAllPopups}
-                        onAddPlace={handleAddPlaceSubmit}
-                        isLoading={isLoading}
-                    />
-                    <EditAvatarPopup
-                        isOpen={isEditAvatarPopupOpen}
-                        onClose={closeAllPopups}
-                        onUpdateAvatar={handleUpdateAvatar}
-                        isLoading={isLoading}
-                    />
-                    <ImagePopup
-                        onClose={closeAllPopups}
-                        card={selectedCard}
-                        isOpen={isImagePopupOpen}
-                    />
-                    <DeletePlacePopup
-                        isOpen={isDeletePlacePopupOpen}
-                        onClose={closeAllPopups}
-                        onDeletePlace={handleCardDelete}
-                        isLoading={isLoading}
-                    />
-                    <InfoTooltip
-                        isOpen={isInfoTooltipPopupOpen}
-                        onClose={closeAllPopups}
-                        isSuccessfully={isSuccessfully}
-                    />
-                </CurrentUserContext.Provider>
-            </div>
-        </BrowserRouter>
+                    <Route
+                        path="/sign-in"
+                        render={() => (
+                            <div>
+                                <Header
+                                    headerTitle="Регистрация"
+                                    linkTo="/sign-up"
+                                />
+                                <Login onLogin={handleLoginSubmit} />
+                            </div>
+                        )}
+                    ></Route>
+                    <Route
+                        path="/sign-up"
+                        render={() => (
+                            <div>
+                                <Header headerTitle="Войти" linkTo="/sign-in" />
+                                <Register onRegister={handleRegisterSubmit} />
+                            </div>
+                        )}
+                    ></Route>
+                </Switch>
+                <Footer />
+                <EditProfilePopup
+                    isOpen={isEditProfilePopupOpen}
+                    onClose={closeAllPopups}
+                    onUpdateUser={handleUpdateUser}
+                    isLoading={isLoading}
+                />
+                <AddPlacePopup
+                    isOpen={isAddPlacePopupOpen}
+                    onClose={closeAllPopups}
+                    onAddPlace={handleAddPlaceSubmit}
+                    isLoading={isLoading}
+                />
+                <EditAvatarPopup
+                    isOpen={isEditAvatarPopupOpen}
+                    onClose={closeAllPopups}
+                    onUpdateAvatar={handleUpdateAvatar}
+                    isLoading={isLoading}
+                />
+                <ImagePopup
+                    onClose={closeAllPopups}
+                    card={selectedCard}
+                    isOpen={isImagePopupOpen}
+                />
+                <DeletePlacePopup
+                    isOpen={isDeletePlacePopupOpen}
+                    onClose={closeAllPopups}
+                    onDeletePlace={handleCardDelete}
+                    isLoading={isLoading}
+                />
+                <InfoTooltip
+                    isOpen={isInfoTooltipPopupOpen}
+                    onClose={closeAllPopups}
+                    isSuccessfully={isSuccessfully}
+                />
+            </CurrentUserContext.Provider>
+        </div>
     )
 }
 

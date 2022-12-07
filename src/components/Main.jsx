@@ -38,13 +38,13 @@ function Main({
                 ></button>
             </section>
             <ul className="elements">
-                {cards.map((card, i) => (
+                {cards.map((card) => (
                     <Card
                         card={card}
                         onCardClick={onCardClick}
                         onCardLike={onCardLike}
                         onCardDelete={onCardDelete}
-                        key={i}
+                        key={card._id}
                     />
                 ))}
             </ul>

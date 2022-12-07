@@ -1,9 +1,7 @@
 import React from 'react'
-import { Link, useHistory } from 'react-router-dom'
-import * as auth from '../utils/auth'
+import { Link } from 'react-router-dom'
 
-function Register({ onInfoTooltip }) {
-    const history = useHistory()
+function Register({ onRegister }) {
     const [formValues, setFormValues] = React.useState({
         email: '',
         password: '',
@@ -15,16 +13,7 @@ function Register({ onInfoTooltip }) {
     }
 
     function handleSubmit(e) {
-        e.preventDefault()
-        auth.register(formValues)
-            .then(() => {
-                history.push('/sign-in')
-                onInfoTooltip(true)
-            })
-            .catch((err) => {
-                console.log(err)
-                onInfoTooltip(false)
-            })
+        onRegister(e, formValues)
     }
 
     return (
