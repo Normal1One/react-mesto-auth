@@ -2,13 +2,12 @@
     max-width: 880px;
     padding-bottom: 60px;
     margin: 66px auto 0;
+    position: relative;
+    bottom: 0;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
     .footer {
         margin-left: 19px;
-        margin-right: 19px;
-        padding-bottom: 36px;
-        margin-top: 48px;
     }
 }

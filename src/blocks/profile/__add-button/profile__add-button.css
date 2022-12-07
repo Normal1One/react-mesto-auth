@@ -14,7 +14,7 @@
     opacity: 0.6;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
     .profile__add-button {
         background-image: url(../../../images/AddButtonBig.svg);
         width: 282px;

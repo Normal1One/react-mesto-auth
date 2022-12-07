@@ -5,19 +5,19 @@
     font-weight: 400;
     font-style: normal;
     font-family: 'Inter', Arial, sans-serif;
-    margin: 0;
-    margin-top: 7px;
+    margin: 7px 0 0;
     max-height: 18px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
     .profile__info-job {
         font-size: 14px;
         line-height: 17px;
         text-align: center;
         margin-top: 14px;
+        padding-bottom: 36px;
     }
 }

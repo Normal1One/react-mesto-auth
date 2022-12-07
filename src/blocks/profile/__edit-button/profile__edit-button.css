@@ -5,14 +5,13 @@
     background-image: url(../../../images/EditButton.svg);
     border: 0;
     padding: 0;
-    margin-bottom: 9px;
     background-color: #000000;
     grid-area: edit-button;
     grid-row-start: 1;
     grid-row-end: 2;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
     .profile__edit-button {
         height: 18px;
         width: 18px;

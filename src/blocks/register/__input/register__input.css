@@ -22,7 +22,7 @@
     outline: none;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 1024px) {
     .register__input {
         max-width: 260px;
     }

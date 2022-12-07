@@ -26,12 +26,12 @@ function Main({
                 </div>
                 <div className="profile__info">
                     <h1 className="profile__info-name">{currentUser.name}</h1>
-                    <p className="profile__info-job">{currentUser.about}</p>
                     <button
                         className="profile__edit-button"
                         onClick={onEditProfile}
                     ></button>
                 </div>
+                <p className="profile__info-job">{currentUser.about}</p>
                 <button
                     className="profile__add-button"
                     onClick={onAddPlace}

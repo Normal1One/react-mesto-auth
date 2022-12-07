@@ -10,7 +10,7 @@
     background-image: url("../../../images/Unsuccessfully.svg");
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 1024px) {
     .register__icon {
         margin-top: 50px;
     }

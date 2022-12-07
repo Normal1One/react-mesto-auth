@@ -5,10 +5,9 @@
     grid-area: info;
     display: grid;
     grid-auto-flow: column;
-    grid-template-rows: repeat(2, 1fr);
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
     .profile__info {
         width: 282px;
         margin: 0;

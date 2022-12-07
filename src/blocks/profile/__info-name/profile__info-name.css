@@ -7,17 +7,17 @@
     font-family: 'Inter', Arial, sans-serif;
     margin: 0;
     max-height: 39px;
-    padding-bottom: 9px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
     .profile__info-name {
         font-size: 27px;
         line-height: 33px;
         text-align: center;
         margin-top: 26px;
+        height: 26px;
     }
 }
