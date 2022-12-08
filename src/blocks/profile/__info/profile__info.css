@@ -5,10 +5,12 @@
     grid-area: info;
     display: grid;
     grid-auto-flow: column;
+    grid-template-rows: 1fr 1fr;
 }
 
 @media screen and (max-width: 1024px) {
     .profile__info {
+        grid-template-rows: 52px 1fr;
         width: 282px;
         margin: 0;
     }

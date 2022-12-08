@@ -9,6 +9,7 @@
     grid-area: edit-button;
     grid-row-start: 1;
     grid-row-end: 2;
+    margin-left: 18px;
 }
 
 @media screen and (max-width: 1024px) {

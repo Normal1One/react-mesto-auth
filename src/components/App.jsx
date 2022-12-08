@@ -16,11 +16,6 @@ import Register from './Register'
 import Login from './Login'
 import InfoTooltip from './InfoTooltip'
 
-// Большая просьба запускать проект через:
-// npm install -g serve
-// serve -s build
-// Скрипт `npm start` не работает по неопределенным причинам!
-
 function App() {
     const [isEditProfilePopupOpen, setEditProfilePopup] = React.useState(false)
     const [isAddPlacePopupOpen, setAddPlacePopup] = React.useState(false)
