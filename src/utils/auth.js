@@ -1,40 +1,40 @@
 export const BASE_URL = 'https://auth.nomoreparties.co'
 
-export const register = ({ email, password }) => {
-    return fetch(`${BASE_URL}/signup`, {
+export const register = async ({ email, password }) => {
+    const response = await fetch(`${BASE_URL}/signup`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email, password }),
-    }).then(_checkResponse)
+    })
+    return _checkResponse(response)
 }
 
-export const authorize = ({ email, password }) => {
-    return fetch(`${BASE_URL}/signin`, {
+export const authorize = async ({ email, password }) => {
+    const response = await fetch(`${BASE_URL}/signin`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({ password, email }),
     })
-        .then(_checkResponse)
-        .then((data) => {
-            if (data.token) {
-                localStorage.setItem('token', data.token)
-                return data
-            }
-        })
+    const data = await _checkResponse(response)
+    if (data.token) {
+        localStorage.setItem('token', data.token)
+        return data
+    }
 }
 
-export const checkToken = (token) => {
-    return fetch(`${BASE_URL}/users/me`, {
+export const checkToken = async (token) => {
+    const response = await fetch(`${BASE_URL}/users/me`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
         },
-    }).then(_checkResponse)
+    })
+    return _checkResponse(response)
 }
 
 function _checkResponse(response) {

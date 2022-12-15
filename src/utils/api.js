@@ -56,11 +56,10 @@ class Api {
         })
     }
 
-    _request(url, options) {
+    async _request(url, options) {
         options['headers'] = this._options.headers
-        return fetch(`${this._options.baseUrl}/${url}`, options).then(
-            this._checkResponse
-        )
+        const response = await fetch(`${this._options.baseUrl}/${url}`, options)
+        return this._checkResponse(response)
     }
 
     _checkResponse(response) {
