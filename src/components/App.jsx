@@ -222,6 +222,7 @@ function App() {
                                     userEmail={userEmail}
                                     onSignOut={handleSignOut}
                                     linkTo="/sign-up"
+                                    loggedIn={loggedIn}
                                 />
                                 <Main
                                     onEditAvatar={handleEditAvatarClick}
@@ -243,6 +244,7 @@ function App() {
                                 <Header
                                     headerTitle="Регистрация"
                                     linkTo="/sign-up"
+                                    loggedIn={loggedIn}
                                 />
                                 <Login onLogin={handleLoginSubmit} />
                             </div>
@@ -252,7 +254,11 @@ function App() {
                         path="/sign-up"
                         render={() => (
                             <div>
-                                <Header headerTitle="Войти" linkTo="/sign-in" />
+                                <Header
+                                    headerTitle="Войти"
+                                    linkTo="/sign-in"
+                                    loggedIn={loggedIn}
+                                />
                                 <Register onRegister={handleRegisterSubmit} />
                             </div>
                         )}

@@ -1,14 +1,57 @@
 import { Link } from 'react-router-dom'
+import React from 'react'
 
-function Header({ headerTitle, userEmail, onSignOut, linkTo }) {
+function Header({ headerTitle, userEmail, onSignOut, linkTo, loggedIn }) {
+    const [isMenuOpen, setMenuOpen] = React.useState(false)
+
+    function handleMenu() {
+        if (isMenuOpen) {
+            setMenuOpen(false)
+        } else {
+            setMenuOpen(true)
+        }
+    }
+
     return (
-        <header className="header">
-            <div className="header__logo"></div>
-            <p className="header__email">{userEmail}</p>
-            <Link to={linkTo} className="header__title" onClick={onSignOut}>
-                {headerTitle}
-            </Link>
-        </header>
+        <>
+            <div
+                className={`burger-menu ${
+                    isMenuOpen ? 'burger-menu__opened' : ''
+                }`}
+            >
+                <p
+                    className={`header__email-burger ${
+                        loggedIn ? 'header__email-burger__opened' : ''
+                    }`}
+                >
+                    {userEmail}
+                </p>
+                <Link
+                    to={linkTo}
+                    className="header__title-burger"
+                    onClick={onSignOut}
+                >
+                    {headerTitle}
+                </Link>
+            </div>
+            <header className="header">
+                <div className="header__logo"></div>
+                <p className="header__email">{userEmail}</p>
+                <div
+                    className={`burger-button ${
+                        loggedIn ? 'burger-button__opened' : ''
+                    }`}
+                    onClick={handleMenu}
+                ></div>
+                <Link
+                    to={linkTo}
+                    className="header__title"
+                    onClick={onSignOut}
+                >
+                    {headerTitle}
+                </Link>
+            </header>
+        </>
     )
 }
 

@@ -9,11 +9,12 @@
     grid-area: edit-button;
     grid-row-start: 1;
     grid-row-end: 2;
-    margin-left: 18px;
 }
 
 @media screen and (max-width: 1024px) {
     .profile__edit-button {
+        align-self: center;
+        margin-left: 10px;
         height: 18px;
         width: 18px;
         background-image: url(../../../images/EditButtonSmall.svg);

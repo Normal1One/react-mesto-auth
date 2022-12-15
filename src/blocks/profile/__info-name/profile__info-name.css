@@ -6,7 +6,7 @@
     font-style: normal;
     font-family: 'Inter', Arial, sans-serif;
     margin: 0;
-    max-height: 39px;
+    max-height: 42px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -16,8 +16,9 @@
     .profile__info-name {
         font-size: 27px;
         line-height: 33px;
-        text-align: center;
-        margin-top: 26px;
-        height: 26px;
+        text-align: end;
+        height: 33px;
+        align-self: center;
+        margin-left: 28px;
     }
 }
