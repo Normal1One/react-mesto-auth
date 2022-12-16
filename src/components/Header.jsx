@@ -19,13 +19,7 @@ function Header({ headerTitle, userEmail, onSignOut, linkTo, loggedIn }) {
                     isMenuOpen ? 'burger-menu__opened' : ''
                 }`}
             >
-                <p
-                    className={`header__email-burger ${
-                        loggedIn ? 'header__email-burger__opened' : ''
-                    }`}
-                >
-                    {userEmail}
-                </p>
+                <p className="header__email-burger">{userEmail}</p>
                 <Link
                     to={linkTo}
                     className="header__title-burger"
@@ -39,7 +33,7 @@ function Header({ headerTitle, userEmail, onSignOut, linkTo, loggedIn }) {
                 <p className="header__email">{userEmail}</p>
                 <div
                     className={`burger-button ${
-                        loggedIn ? 'burger-button__opened' : ''
+                        loggedIn ? 'burger-button__shown' : ''
                     }`}
                     onClick={handleMenu}
                 ></div>
