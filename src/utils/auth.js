@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://auth.nomoreparties.co'
+export const BASE_URL = 'https://api.mesto.nikitalavrov.nomoredomainsclub.ru'
 
 export const register = async ({ email, password }) => {
     const response = await fetch(`${BASE_URL}/signup`, {
@@ -19,20 +19,13 @@ export const authorize = async ({ email, password }) => {
         },
         body: JSON.stringify({ password, email }),
     })
-    const data = await _checkResponse(response)
-    if (data.token) {
-        localStorage.setItem('token', data.token)
-        return data
-    }
+    return _checkResponse(response)
 }
 
-export const checkToken = async (token) => {
+export const checkToken = async () => {
     const response = await fetch(`${BASE_URL}/users/me`, {
         method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-        },
+        credentials: 'include'
     })
     return _checkResponse(response)
 }

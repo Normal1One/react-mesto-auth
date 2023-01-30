@@ -139,11 +139,9 @@ function App() {
     function handleLoginSubmit(e, formValues) {
         e.preventDefault()
         auth.authorize(formValues)
-            .then((data) => {
-                if (data.token) {
-                    setLoggedIn(true)
-                    history.push('/')
-                }
+            .then(() => {
+                setLoggedIn(true)
+                history.push('/')
             })
             .catch((err) => {
                 console.log(err)
@@ -178,7 +176,7 @@ function App() {
     }
 
     function handleSignOut() {
-        localStorage.removeItem('token')
+        console.log(document.cookie)
         setUserEmail('')
         setLoggedIn(false)
     }
@@ -195,20 +193,17 @@ function App() {
     }, [])
 
     React.useEffect(() => {
-        if (localStorage.getItem('token')) {
-            const token = localStorage.getItem('token')
-            auth.checkToken(token)
-                .then((res) => {
-                    setUserEmail(res.data.email)
-                    setLoggedIn(true)
-                })
-                .catch((err) => {
-                    console.log(err)
-                })
-                .finally(() => {
-                    history.push('/')
-                })
-        }
+        auth.checkToken()
+            .then((res) => {
+                setUserEmail(res.data.email)
+                setLoggedIn(true)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+            .finally(() => {
+                history.push('/')
+            })
     })
 
     return (
