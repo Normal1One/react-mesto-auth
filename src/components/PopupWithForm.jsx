@@ -57,7 +57,7 @@ function PopupWithForm({
             className={`popup ${isOpen ? 'popup_opened' : ''}`}
             id={`popup-${name}`}
         >
-            <div className="popup__container">
+            <div className={"popup__container popup__container_" + name}>
                 <p className="popup__title">{title}</p>
                 <button
                     className="popup__close-button"

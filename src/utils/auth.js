@@ -17,6 +17,7 @@ export const authorize = async ({ email, password }) => {
         headers: {
             'Content-Type': 'application/json',
         },
+        credentials: 'include',
         body: JSON.stringify({ password, email }),
     })
     return _checkResponse(response)
@@ -25,7 +26,15 @@ export const authorize = async ({ email, password }) => {
 export const checkToken = async () => {
     const response = await fetch(`${BASE_URL}/users/me`, {
         method: 'GET',
-        credentials: 'include'
+        credentials: 'include',
+    })
+    return _checkResponse(response)
+}
+
+export const logout = async () => {
+    const response = await fetch(`${BASE_URL}/logout`, {
+        method: 'GET',
+        credentials: 'include',
     })
     return _checkResponse(response)
 }

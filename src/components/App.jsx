@@ -139,9 +139,11 @@ function App() {
     function handleLoginSubmit(e, formValues) {
         e.preventDefault()
         auth.authorize(formValues)
-            .then(() => {
-                setLoggedIn(true)
-                history.push('/')
+            .then((res) => {
+                if (res.jwt) {
+                    setLoggedIn(true)
+                    history.push('/')
+                }
             })
             .catch((err) => {
                 console.log(err)
@@ -176,26 +178,31 @@ function App() {
     }
 
     function handleSignOut() {
-        console.log(document.cookie)
-        setUserEmail('')
-        setLoggedIn(false)
+        auth.logout()
+            .then(() => {
+                setUserEmail('')
+                setLoggedIn(false)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
 
     React.useEffect(() => {
         Promise.all([api.getInitialCards(), api.getProfileInfo()])
             .then(([initialCards, profileData]) => {
-                setCards(initialCards)
+                setCards(initialCards.data)
                 setCurrentUser(profileData)
+                setUserEmail(profileData.email)
             })
             .catch((err) => {
                 console.log(err)
             })
-    }, [])
+    }, [loggedIn])
 
     React.useEffect(() => {
         auth.checkToken()
-            .then((res) => {
-                setUserEmail(res.data.email)
+            .then(() => {
                 setLoggedIn(true)
             })
             .catch((err) => {
@@ -219,7 +226,7 @@ function App() {
                                     headerTitle="Выйти"
                                     userEmail={userEmail}
                                     onSignOut={handleSignOut}
-                                    linkTo="/sign-up"
+                                    linkTo="/sign-in"
                                     loggedIn={loggedIn}
                                 />
                                 <Main

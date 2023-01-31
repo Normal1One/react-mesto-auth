@@ -12,9 +12,23 @@
     flex-direction: column;
 }
 
+.popup__container_delete {
+    height: 181px;
+}
+
+.popup__container_avatar {
+    height: 272px;
+}
+
 @media screen and (max-width: 1024px) {
     .popup__container {
         width: 282px;
         height: 322px;
+    }
+    .popup__container_delete {
+        height: 181px;
+    }
+    .popup__container_avatar {
+        height: 272px;
     }
 }

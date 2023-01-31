@@ -58,6 +58,7 @@ class Api {
 
     async _request(url, options) {
         options['headers'] = this._options.headers
+        options['credentials'] = this._options.credentials
         const response = await fetch(`${this._options.baseUrl}/${url}`, options)
         return this._checkResponse(response)
     }
@@ -72,6 +73,9 @@ class Api {
 
 const api = new Api({
     baseUrl: 'https://api.mesto.nikitalavrov.nomoredomainsclub.ru',
+    headers: {
+        'Content-Type': 'application/json',
+    },
     credentials: 'include'
 })
 
