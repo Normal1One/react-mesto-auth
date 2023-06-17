@@ -1,7 +1,5 @@
-# Здесь будет ваш проект на Реакте с авторизацией и регистрацией
+# Project on React with authorization and registration
 
-Используйте ваши предыдущие наработки по проекту Mesto. Это может быть работа 11-го спринта или его улучшенная версия после 2-х последних спринтов. 
+Previous work on the Mesto project was used.
 
-Все запросы на авторизацию, регистрацию и проверку токена должны работать через сервис `https://auth.nomoreparties.co`. Остальные запросы, не относящиеся к этой проектной работе могут быть к бэкенду из предыдущих спринтов.
-
-Успехов!
+All authorization, registration and token verification requests work through the `https://auth.nomoreparties.co` service.
